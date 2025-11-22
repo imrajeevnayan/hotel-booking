@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxStay - Premium Hotel Booking</title>
+    <meta name="description" content="Book luxury hotels worldwide with LuxStay. Experience premium accommodations with seamless booking and secure payments.">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <h1 class="logo">LuxStay</h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#hotels" class="nav-link">Hotels</a>
+                <a href="#bookings" class="nav-link auth-required" style="display: none;">My Bookings</a>
+                <div class="nav-auth" id="navAuth">
+                    <button class="btn btn-outline" id="loginBtn">Login</button>
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                </div>
+                <div class="nav-user" id="navUser" style="display: none;">
+                    <div class="user-dropdown">
+                        <button class="user-btn" id="userBtn">
+                            <span class="user-avatar" id="userAvatar">U</span>
+                            <span class="user-name" id="userName">User</span>
+                        </button>
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="#profile" class="dropdown-item">Profile</a>
+                            <a href="#bookings" class="dropdown-item">My Bookings</a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Discover Your Perfect Stay</h1>
+            <p class="hero-subtitle">Experience luxury and comfort at the world's finest hotels</p>
+            
+            <!-- Search Form -->
+            <div class="search-card">
+                <div class="search-form">
+                    <div class="form-group">
+                        <label for="searchCity">Destination</label>
+                        <input type="text" id="searchCity" placeholder="Where are you going?">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchCheckIn">Check-in</label>
+                        <input type="date" id="searchCheckIn">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchCheckOut">Check-out</label>
+                        <input type="date" id="searchCheckOut">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchGuests">Guests</label>
+                        <input type="number" id="searchGuests" min="1" value="2">
+                    </div>
+                    <button class="btn btn-primary btn-search" id="searchBtn">
+                        <span>Search</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hotels Section -->
+    <section class="section" id="hotels">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Hotels</h2>
+                <p class="section-subtitle">Handpicked luxury accommodations for your perfect getaway</p>
+            </div>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <button class="filter-btn active" data-city="all">All</button>
+                <button class="filter-btn" data-city="Mumbai">Mumbai</button>
+                <button class="filter-btn" data-city="Goa">Goa</button>
+                <button class="filter-btn" data-city="Shimla">Shimla</button>
+                <button class="filter-btn" data-city="Bangalore">Bangalore</button>
+            </div>
+            
+            <div class="hotels-grid" id="hotelsGrid">
+                <!-- Hotels will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- My Bookings Section -->
+    <section class="section auth-required" id="bookings" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Bookings</h2>
+                <p class="section-subtitle">Manage your hotel reservations</p>
+            </div>
+            
+            <div class="bookings-list" id="bookingsList">
+                <!-- Bookings will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-overlay" id="loginOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="loginClose">&times;</button>
+            <h2 class="modal-title">Welcome Back</h2>
+            <p class="modal-subtitle">Login to your account</p>
+            
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+            
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <a href="/oauth2/authorization/github" class="btn btn-github btn-block">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                Continue with GitHub
+            </a>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-overlay" id="signupOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="signupClose">&times;</button>
+            <h2 class="modal-title">Create Account</h2>
+            <p class="modal-subtitle">Join LuxStay today</p>
+            
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="signupPhone">Phone Number (Optional)</label>
+                    <input type="tel" id="signupPhone">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+            </form>
+            
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <a href="/oauth2/authorization/github" class="btn btn-github btn-block">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                Continue with GitHub
+            </a>
+        </div>
+    </div>
+
+    <!-- Hotel Details Modal -->
+    <div class="modal" id="hotelModal">
+        <div class="modal-overlay" id="hotelOverlay"></div>
+        <div class="modal-content modal-large">
+            <button class="modal-close" id="hotelClose">&times;</button>
+            <div id="hotelDetails">
+                <!-- Hotel details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-overlay" id="bookingOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="bookingClose">&times;</button>
+            <h2 class="modal-title">Complete Your Booking</h2>
+            
+            <form id="bookingForm" class="booking-form">
+                <input type="hidden" id="bookingHotelId">
+                
+                <div class="form-group">
+                    <label for="bookingCheckIn">Check-in Date</label>
+                    <input type="date" id="bookingCheckIn" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookingCheckOut">Check-out Date</label>
+                    <input type="date" id="bookingCheckOut" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookingGuests">Number of Guests</label>
+                        <input type="number" id="bookingGuests" min="1" value="2" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bookingRooms">Number of Rooms</label>
+                        <input type="number" id="bookingRooms" min="1" value="1" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookingRequests">Special Requests (Optional)</label>
+                    <textarea id="bookingRequests" rows="3"></textarea>
+                </div>
+                
+                <div class="booking-summary">
+                    <h3>Booking Summary</h3>
+                    <div class="summary-item">
+                        <span>Hotel:</span>
+                        <span id="summaryHotel">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Price per night:</span>
+                        <span id="summaryPrice">₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Number of nights:</span>
+                        <span id="summaryNights">0</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total Amount:</span>
+                        <span id="summaryTotal">₹0</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">LuxStay</h3>
+                    <p class="footer-text">Your gateway to luxury accommodations worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#hotels">Hotels</a>
+                    <a href="#bookings">My Bookings</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LuxStay. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
