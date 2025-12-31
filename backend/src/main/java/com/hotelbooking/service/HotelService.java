@@ -47,7 +47,7 @@ public class HotelService {
         hotel.setDescription(hotelDetails.getDescription());
         hotel.setAddress(hotelDetails.getAddress());
         hotel.setCity(hotelDetails.getCity());
-        hotel.setState(hotelDetails.setState());
+        hotel.setState(hotelDetails.getState());
         hotel.setCountry(hotelDetails.getCountry());
         hotel.setZipCode(hotelDetails.getZipCode());
         hotel.setPhoneNumber(hotelDetails.getPhoneNumber());
