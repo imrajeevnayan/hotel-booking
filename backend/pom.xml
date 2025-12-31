@@ -21,9 +21,9 @@
     <description>Hotel Booking System with Spring Boot and PostgreSQL</description>
 
     <properties>
-        <!-- Compile with Java 21 -->
-        <java.version>21</java.version>
-        <maven.compiler.release>21</maven.compiler.release>
+        <!-- Compile with Java 25 -->
+        <java.version>25</java.version>
+        <maven.compiler.release>25</maven.compiler.release>
     </properties>
 
     <dependencies>
