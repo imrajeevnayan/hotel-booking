@@ -1,100 +1,145 @@
-# 🏨 LuxStay - Full Stack Hotel Booking System
+# 🏨 LuxStay - Hotel Booking System
 
-Welcome to **LuxStay**, a premium, full-stack hotel booking platform designed to deliver a seamless booking experience. It combines a high-performance **Java Spring Boot** backend with a visually stunning **React** frontend, all containerized with **Docker** for easy deployment.
+**Welcome to LuxStay!** 🌟
 
-![LuxStay Banner](https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3)
+This is a complete implementation of a modern Hotel Booking Application. Whether you are a developer looking for code reference or a user wanting to see a beautiful booking site, you are in the right place.
 
----
+We built this key question in mind: **"How can we make booking a hotel room as smooth and beautiful as possible?"**
 
-## 🌟 Quick Links
-
-- **[Frontend Documentation](./frontend/README.md)** - React, Vite, Tailwind Setup & Details.
-- **[Backend Documentation](./backend/README.md)** - Spring Boot, API, Database & Security Details.
+![Project Banner](https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3)
+*(Detailed screenshots available below)*
 
 ---
 
-## 🚀 Key Features
-
-- **Full-Stack Architecture:** Decoupled Frontend and Backend communicating via REST APIs.
-- **Authentication:** Secure login via Email/Password (JWT) and **GitHub OAuth**.
-- **Containerization:** Complete Docker Compose setup for one-command startup.
-- **Database:** PostgreSQL for robust data management.
-- **Modern UI:** Responsive, animated, and accessible interface.
-- **Payments:** Integrated Razorpay payment gateway.
+## 📚 Table of Contents
+1. [🌟 What Can You Do Here?](#-what-can-you-do-here)
+2. [🚀 The Easiest Way to Run This (For Beginners)](#-the-easiest-way-to-run-this-for-beginners)
+3. [💻 For Developers (Manual Setup)](#-for-developers-manual-setup)
+4. [📖 Step-by-Step User Guide](#-step-by-step-user-guide)
+5. [❓ Troubleshooting Profile](#-troubleshooting)
 
 ---
 
-## 🛠 Tech Stack Overview
+## 🌟 What Can You Do Here?
 
-| Area | Technology |
-|------|------------|
-| **Frontend** | React 18, Vite, Tailwind CSS, Axios, Lucide Icons |
-| **Backend** | Java 25, Spring Boot 3.4, Hibernate, Spring Security |
-| **Database** | PostgreSQL 15 |
-| **DevOps** | Docker, Docker Compose |
+**For Users:**
+*   **Browse Hotels:** Explore a curated list of luxury hotels with beautiful images and prices.
+*   **Search & Filter:** Find exactly what you want by filtering by city or price.
+*   **Sign Up/Login:** Create your secure account or just click **"Login with GitHub"** for instant access.
+*   **Book a Room:** distinct dates, check availability, and "pay" (simulation) for your stay.
+*   **Manage Bookings:** View all your past and upcoming trips in your dashboard.
 
----
-
-## 🏁 Getting Started (The Fast Way)
-
-The easiest way to run the entire application is using **Docker Compose**.
-
-### 1. Prerequisites
-- [Docker & Docker Compose](https://www.docker.com/products/docker-desktop/) installed.
-- Git installed.
-
-### 2. Clone the Repository
-```bash
-git clone https://github.com/imrajeevnayan/hotel-booking.git
-cd hotel-booking
-```
-
-### 3. Environment Setup
-Create a `.env` file in the root directory. You can copy the example:
-
-```bash
-cp .env.example .env
-```
-
-**Important:** You **MUST** update the `.env` file with your real credentials (GitHub OAuth Client ID/Secret, Razorpay Keys) for those features to work.
-
-### 4. Run the Application
-```bash
-docker-compose up --build
-```
-*This command will build both the frontend and backend images, start the PostgreSQL database, and wire everything together.*
-
-### 5. Access the App
-- **Frontend (User Interface):** [http://localhost:3000](http://localhost:3000)
-- **Backend (API):** [http://localhost:8080](http://localhost:8080)
+**For Developers:**
+*   See how **Java Spring Boot** (Backend) talks to **React** (Frontend).
+*   Learn how **Docker** containers work together.
+*   Understand **OAuth2** (Social Login) and **JWT** (Security).
 
 ---
 
-## 🔧 Manual Setup (Without Docker)
+## 🚀 The Easiest Way to Run This (For Beginners)
 
-If you prefer to run services individually, please refer to the specific READMEs:
+If you don't want to install Java, Maven, Node.js, and everything else manually, use **Docker**. It bundles everything into a "box" that just runs.
 
-1.  **[Backend Setup Guide](./backend/README.md)**
-2.  **[Frontend Setup Guide](./frontend/README.md)**
+### Prerequisite
+*   **Docker Desktop**: Download and install it from [docker.com](https://www.docker.com/products/docker-desktop/).
+    *   *Tip: After installing, open the "Docker Desktop" app and make sure it is running.*
+
+### Steps
+1.  **Download the Code**
+    *   Click the green **"Code"** button above and select "Download ZIP", then unzip it.
+    *   OR run in terminal: `git clone https://github.com/imrajeevnayan/hotel-booking.git`
+
+2.  **Open Terminal**
+    *   Go to the folder where you downloaded the project.
+
+3.  **Setup Configuration (Important!)**
+    *   Creates a file named `.env`.
+    *   Open `.env.example`, copy everything, and paste it into your new `.env` file.
+    *   **Crucial:** You need to fill in `GITHUB_CLIENT_ID` and `RAZORPAY_KEY` for those specific features to work. (You can leave them blank if you just want to browse hotels, but login might fail).
+
+4.  **Run One Command**
+    ```bash
+    docker-compose up --build
+    ```
+    *   *This will take a few minutes the first time as it downloads all the necessary tools.*
+
+5.  **Visit the App!**
+    *   **Frontend (The Website):** Open [http://localhost:3000](http://localhost:3000)
+    *   **Backend (The Server):** Open [http://localhost:8080](http://localhost:8080)
 
 ---
 
-## 🤝 Contributing
+## 💻 For Developers (Manual Setup)
 
-Contributions are welcome! Please fork the repository and create a pull request.
+If you want to modify the code, you should run the services individually.
 
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+### 1. Backend (The Brain)
+*   **Location:** `./backend` folder.
+*   **Tech:** Java 25, Spring Boot.
+*   **Run:**
+    ```bash
+    cd backend
+    mvn spring-boot:run
+    ```
+*   [Read detailed Backend Guide](./backend/README.md)
+
+### 2. Frontend (The Face)
+*   **Location:** `./frontend` folder.
+*   **Tech:** React, Vite.
+*   **Run:**
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
+    ```
+*   [Read detailed Frontend Guide](./frontend/README.md)
 
 ---
 
-## 📜 License
+## 📖 Step-by-Step User Guide
 
-Distributed under the MIT License. See `LICENSE` for more information.
+So the app is running. Now what?
+
+### 1. Register or Login
+*   Click the **"Login"** button in the top right.
+*   **Option A:** Enter an email and password to create a new account.
+*   **Option B (Easier):** Click "Continue with GitHub".
+
+### 2. Find a Hotel
+*   On the Home page, scroll down to see "Featured Hotels".
+*   Click on any hotel card to specific details (Amenities, Map, Rooms).
+
+### 3. Make a Booking
+*   On the Hotel Details page, you will see a **"Book Now"** section.
+*   Select your **Check-in** and **Check-out** dates.
+*   Select the number of guests.
+*   Click **"Reserve"**. 
+*   *Note: If you are not logged in, it will ask you to login first.*
+
+### 4. Payment (Test Mode)
+*   You will see a Razorpay payment popup.
+*   Since this is a test mode, you can use any dummy card details provided by Razorpay documentation, or just close the popup (depending on config) to simulate a transaction.
+
+### 5. Check Your Dashboard
+*   Click your profile icon in the top right -> **"My Bookings"**.
+*   You will see your reservation there!
 
 ---
 
-**Happy Coding!** 🚀
+## ❓ Troubleshooting
+
+**"Port 8080 is already in use"**
+*   This means another program is using the port our backend needs.
+*   *Fix:* Close the other program or restart your computer.
+
+**"Connection Refused"**
+*   The frontend cannot talk to the backend.
+*   *Fix:* Make sure the backend terminal says "Started HotelBookingApplication".
+
+**"Login Failed"**
+*   Did you set up the `.env` file?
+*   Check if your Database password in `.env` matches your local PostgreSQL password.
+
+---
+
+**Built with ❤️ by Rajeev Nayan**
