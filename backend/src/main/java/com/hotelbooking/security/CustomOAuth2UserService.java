@@ -45,6 +45,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             email = attributes.get("login") + "@github.com";
         }
 
+        final String finalEmail = email;
         return userRepository.findByProviderAndProviderId(User.AuthProvider.GITHUB, providerId)
                 .map(existingUser -> {
                     existingUser.setName(name);
@@ -53,7 +54,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 })
                 .orElseGet(() -> {
                     User newUser = new User();
-                    newUser.setEmail(email);
+                    newUser.setEmail(finalEmail);
                     newUser.setName(name);
                     newUser.setProvider(User.AuthProvider.GITHUB);
                     newUser.setProviderId(providerId);
