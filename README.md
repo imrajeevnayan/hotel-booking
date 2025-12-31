@@ -140,6 +140,14 @@ So the app is running. Now what?
 *   Did you set up the `.env` file?
 *   Check if your Database password in `.env` matches your local PostgreSQL password.
 
+**Docker Error: `KeyError: 'ContainerConfig'`**
+*   This happens when docker-compose cannot read the state of an existing container (common with older versions).
+*   *Fix:* Run the helper script `./fix_docker.sh` OR manually run:
+    ```bash
+    docker rm -f hotel-booking_backend_1
+    docker-compose up --build
+    ```
+
 ---
 
 **Built with ❤️ by Rajeev Nayan**
