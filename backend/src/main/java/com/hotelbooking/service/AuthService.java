@@ -68,4 +68,27 @@ public class AuthService {
                 user.getName(),
                 user.getRole().name());
     }
+
+    public AuthResponse getCurrentUser(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // We don't necessarily need to generate a new token, but AuthResponse expects
+        // one.
+        // We can return null for token or existing one if passed, but here we just want
+        // user info.
+        // Let's generate a fresh one or just put null (since frontend has it).
+        // Safest is to generate one or empty string.
+        // Actually, let's reuse the one from context if possible, but we don't have it
+        // here.
+        // Let's generate a new one to be safe (refresh token effective).
+        String token = jwtTokenProvider.generateToken(user.getEmail());
+
+        return new AuthResponse(
+                token,
+                user.getId(),
+                user.getEmail(),
+                user.getName(),
+                user.getRole().name());
+    }
 }

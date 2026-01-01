@@ -25,4 +25,17 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<AuthResponse> getCurrentUser(
+            org.springframework.security.core.Authentication authentication) {
+        // We can get the user details from the Authentication object
+        // Depending on how your UserDetails is implemented (CustomUserDetails or just
+        // User)
+        // Let's assume AuthService can handle this or retrieve it directly here.
+        // Actually, let's keep it simple and use AuthService if possible, or just build
+        // response here.
+        // But we need the User entity.
+        return ResponseEntity.ok(authService.getCurrentUser(authentication.getName()));
+    }
 }
