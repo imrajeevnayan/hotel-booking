@@ -10,7 +10,7 @@ const HotelCard = ({ hotel }) => {
     return (
         <div className="hotel-card">
             <div className="card-image-container">
-                <img src={imageUrl} alt={hotel.name} className="card-image" />
+                <img src={imageUrl} alt={hotel.name} className="card-image" loading="lazy" />
                 <div className="rating-badge">
                     <Star size={14} fill="#fbbf24" stroke="none" />
                     <span>{hotel.rating}</span>
